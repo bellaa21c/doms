@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head/>
+<body>
+<ul th:fragment="pagination(pages)" class="pagination">
+    <li th:class="${pages.number eq 0}?'disabled':''">
+        <a th:if="${pages.number eq 0}" href="javascript:void(0)" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a>
+        <a th:unless="${pages.number eq 0}" th:href="@{__${#httpServletRequest.requestURI}__(page=${pages.number-1})}"  aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a>
+    </li>
+
+    <li th:each="no:${#numbers.sequence(0, pages.totalPages-1)}" th:class="${pages.number eq no}?'active':''">
+<!--        <a href="javascript:list.search()" th:inline="text">[[${no+1}]]</a>-->
+<!--        <a th:href="@{__${#httpServletRequest.requestURI}__(page=${no})}" th:inline="text">[[${no+1}]]</a>-->
+        <a cu:href="@{''(page=${no})}" th:inline="text">[[${no+1}]]</a>
+    </li>
+
+    <li th:class="${pages.number+1 ge pages.totalPages}?'disabled':''">
+        <a th:if="${pages.number+1 ge pages.totalPages}" href="javascript:void(0)"   aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>
+        <a th:unless="${pages.number+1 ge pages.totalPages}" th:href="@{__${#httpServletRequest.requestURI}__(page=${pages.number+1})}"  aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>
+    </li>
+</ul>
+</body>
+</html>

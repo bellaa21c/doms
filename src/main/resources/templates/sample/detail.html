@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Book</h1>
+<form id="frm" name="frm" th:object="${book}" method="post" th:action="@{/sample/book}">
+    <input name="id" th:field="*{id}" type="hidden">
+    <label>
+        타이틀:
+        <input type="text" name="title" th:field="*{title}"/>
+    </label>
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">test</p>
+    <label>
+        작가:
+        <input type="text" name="author_id" th:value="*{author_id}"/>
+    </label>
+    <p th:if="${#fields.hasErrors('author_id')}" th:errors="*{author_id}">test</p><br>
+</form>
+<button type="button" id="btn_save" name="btn_save">저장</button>
+<button type="button" name="btn_prev"><a cu:href="@{/sample/books(id=)}">목록</a></button>
+<script type="text/javascript" th:src="@{/js/sample/detail.js}"></script>
+</body>
+</html>
